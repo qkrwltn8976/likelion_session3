@@ -1,0 +1,68 @@
+{% extends 'base.html' %} <!-- base.html의 내용을 가져오겠다. -->
+{% load staticfiles %}
+{% block content %}
+    <style>  
+        .portfolio-item {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        max-width: 530px;
+        margin: auto auto 1rem;
+        }
+
+        .portfolio-item .caption {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+        }
+
+        .portfolio-item .caption .caption-content {
+        margin: auto ;
+        }
+
+        .portfolio-item .caption .caption-content h2 {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        }
+
+        .portfolio-item .caption .caption-content p {
+        font-weight: 300;
+        font-size: 1.2rem;
+        }
+    </style>
+  
+    <br><br>
+    <section class="content-section" id="portfolio">
+            <div class="container">
+              <div class="content-section-heading text-center">
+                <h3 class="text-secondary mb-0">To Do</h3>
+                <h2 class="mb-5">과제목록</h2>
+              </div>
+              <div class="row no-gutters">
+                {% for item in assignments %}
+                <div class="col-lg-4">
+                  <a class="portfolio-item" href="detail?item_id={{item.id}}">
+                    <span class="caption">
+                      <span class="caption-content">
+                        <h1>{{item.id}}</h1>
+                        <h3 class="mb-0">{{item.name}}</h3>
+                        <h4 class="mb-0">:{{item.course}}</h4>
+                        <p class="mb-0">{{item.submission_date}}</p>
+                      </span>
+                    </span>
+                    <img class="img-fluid" src="{% static 'img/memo.png' %}" alt="">
+                  </a>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+    </section>
+
+{% endblock %}
