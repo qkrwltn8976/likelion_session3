@@ -1,1 +1,64 @@
-성공적으로 수정되었습니다
+{% extends 'base.html' %} <!-- base.html의 내용을 가져오겠다. -->
+{% load staticfiles %}
+{% block content %}
+ <!-- Main Content -->
+ <br><br>  
+ <div class="container">
+    <div class="content-section-heading text-center">
+        <h3 class="text-secondary mb-0">To Do</h3>
+        <h2 class="mb-5">과제수정</h2>
+    </div>
+    <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+            <form action="{% url 'edit' item.id %}" method="POST" name="editMessage" id="contactForm" novalidate>
+            {% csrf_token %}
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                <h4>과제</h4><label>과제</label>
+                <input type="text" class="form-control" placeholder="과제" name="name" value= "{{item.name}}" required data-validation-required-message="과제명 입력하세요">
+                <p class="help-block text-danger"></p>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                <h4>강의</h4><label>강의</label>
+                <input type="text" class="form-control" placeholder="강의" name="course" value= "{{item.course}}" required data-validation-required-message="강의명을 입력하세요">
+                <p class="help-block text-danger"></p>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="form-group col-xs-12 floating-label-form-group controls">
+                <h4>제출일</h4><label>제출일</label>
+                <input type="date" class="form-control" placeholder="제출일" name="submission_date" value= "{{item.submission_date|date:'Y-m-d'}}" required data-validation-required-message="제출일을 선택하세요">
+                <span class="validity"></span>
+                <p class="help-block text-danger"></p>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                <h4>내용</h4><label>내용</label>
+                <textarea rows="5" class="form-control" placeholder="내용" name="content" value= "{{item.content}}" required data-validation-required-message="내용을 입력하세요">{{item.content}}</textarea>
+                <p class="help-block text-danger"></p>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                <p class="help-block">완료</p>
+                <label>완료</label>
+                <input type="checkbox" class="form-control" name="finish" value= "{{item.finish}}">
+                <input type="hidden" class="form-control" name="id" value= "{{item.id}}">
+                </div>
+            </div>
+            <br>
+            <div id="success"></div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary" id="sendMessageButton">완료</button>
+            </div>
+            </form>
+            <div class="clearfix text-center">
+                    <a class="btn" href="{% url 'list' %}">&larr; 뒤로가기</a>
+            </div>
+        </div>
+        </div>
+</div>
+ {% endblock %}

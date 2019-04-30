@@ -21,22 +21,28 @@ def add(request):
     return render(request, 'assignments/add.html')
 
 
-def detail(request):
-    item_id = request.GET.get('item_id')
-    item = get_object_or_404(Assignment, pk=item_id)
+def detail(request, id):
+    item = get_object_or_404(Assignment, pk=id)
     return render(request, 'assignments/detail.html', {'item': item})
 
 
-def edit(request):
-   
+def edit(request, id):
+    item = get_object_or_404(Assignment, pk=id)
     if request.method == "POST":
-        item_id = request.POST.get('id')
-        item = get_object_or_404(Assignment, pk=item_id)
+        #item = get_object_or_404(Assignment, pk=item_id)
         item.name = request.POST.get('name')
         item.course = request.POST.get('course')
         item.submission_date = request.POST.get('submission_date')
-        print("++++++"+request.POST.get('name'))
+        print("++++++"+str(item.submission_date))
         item.content = request.POST.get('content')
         item.save()
-        return redirect('list')
-    return render(request, 'assignments/edit.html')
+        return redirect('detail', item.id)
+    return render(request, 'assignments/edit.html', {'item': item})
+
+
+def delete(request, id):
+    item = get_object_or_404(Assignment, pk=id)
+    item.delete()
+    return redirect('list')
+
+

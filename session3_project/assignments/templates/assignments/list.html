@@ -48,7 +48,7 @@
               <div class="row no-gutters">
                 {% for item in assignments %}
                 <div class="col-lg-4">
-                  <a class="portfolio-item" href="detail?item_id={{item.id}}">
+                  <a class="portfolio-item" href="{% url 'detail' item.id %}">
                     <span class="caption">
                       <span class="caption-content">
                         <h1>{{item.id}}</h1>
